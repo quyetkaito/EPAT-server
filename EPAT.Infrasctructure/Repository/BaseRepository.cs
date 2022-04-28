@@ -19,8 +19,10 @@ namespace EPAT.Infrasctructure.Repository
     {
 
         #region Field
-        //chuỗi kết nối chung        
-        protected string ConnectionString = "Host=localhost; Port=3306; Database = benhnhandb; User Id = root; Password = ''";        
+        //chuỗi kết nối local        
+        //protected string ConnectionString = "Host=localhost; Port=3306; Database = benhnhandb; User Id = root; Password = ''";
+        //server Quyết
+        protected string ConnectionString = "Host=168.138.171.44; Port=3306; Database = EpatDB; User Id = quyetkaito; Password = Quyet@1234";
         string tableName = string.Empty;
         #endregion
 
@@ -28,7 +30,7 @@ namespace EPAT.Infrasctructure.Repository
         public BaseRepository()
         {
             //lấy tên bảng dữ liệu
-            tableName = typeof(MISAEntity).Name;
+            tableName = ToUnderscoreCase(typeof(MISAEntity).Name);
         }
         #endregion
 
@@ -369,5 +371,10 @@ namespace EPAT.Infrasctructure.Repository
             return columns;
         }
         #endregion
+
+        public string ToUnderscoreCase(string str)
+        {
+            return string.Concat(str.Select((x, i) => i > 0 && char.IsUpper(x) ? "_" + x.ToString() : x.ToString())).ToLower();
+        }
     }
 }
