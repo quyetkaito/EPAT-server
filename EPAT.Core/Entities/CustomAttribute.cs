@@ -11,7 +11,7 @@ namespace EPAT.Core.Entities
     /// </summary>
     /// Author: quyetnv (21/03/2022)
     [AttributeUsage(AttributeTargets.Property)]
-    public class MISARequired : Attribute
+    public class Required : Attribute
     {
         /// <summary>
         /// Thông tin lỗi khởi tạo
@@ -23,11 +23,11 @@ namespace EPAT.Core.Entities
         /// </summary>
         /// <param name="errorMgs">Giá trị message khởi tạo kèm theo attribute</param>
         /// Author: quyetnv (21/03/2022)
-        public MISARequired(string? errorMgs = null)
+        public Required(string? errorMgs = null)
         {
             messageError = errorMgs;
         }
-        public MISARequired()
+        public Required()
         {
 
         }

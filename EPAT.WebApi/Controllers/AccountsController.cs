@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EPAT.WebApi.Controllers
 {
-    public class AccountsController : MISABaseController<Account>
+    public class AccountsController : EPatBaseController<Account>
     {
         IAccountService _accountService;
         public AccountsController(IAccountService accountService) : base(accountService)

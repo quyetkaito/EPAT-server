@@ -10,7 +10,7 @@ namespace EPAT.Core.Entities
     /// Đối tượng message để gửi lại client khi API được gọi.
     /// </summary>
     /// Author: quyetkaito (12/03/2022)
-    public class MISAMessage
+    public class JSONMessage
     {
         /// <summary>
         /// Thông báo cho lập trình viên

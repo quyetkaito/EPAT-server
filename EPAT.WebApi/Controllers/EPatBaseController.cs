@@ -8,7 +8,7 @@ namespace EPAT.WebApi.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class MISABaseController<MISAEntity> : ControllerBase where MISAEntity : class
+    public class EPatBaseController<MISAEntity> : ControllerBase where MISAEntity : class
     {
         #region Declare
         //khai báo một interface base service
@@ -23,12 +23,12 @@ namespace EPAT.WebApi.Controllers
         /// </summary>
         /// <param name="baseService">interface base service</param>
         /// <param name="baseRepository">interface base repo</param>
-        public MISABaseController(IBaseService<MISAEntity> baseService, IBaseRepository<MISAEntity> baseRepository)
+        public EPatBaseController(IBaseService<MISAEntity> baseService, IBaseRepository<MISAEntity> baseRepository)
         {
             _baseService = baseService;
             _baseRepository = baseRepository;
         }
-        public MISABaseController(IBaseService<MISAEntity> baseService)
+        public EPatBaseController(IBaseService<MISAEntity> baseService)
         {
             _baseService = baseService;
         }
@@ -57,7 +57,7 @@ namespace EPAT.WebApi.Controllers
             }
             else
             {
-                var message = new MISAMessage();
+                var message = new JSONMessage();
                 message.UserMsg = ResourceVN.NoContent;
                 message.DevMsg = ResourceVN.NoContent;
                 message.StatusCode = 204;
@@ -93,7 +93,7 @@ namespace EPAT.WebApi.Controllers
             }
             else
             {
-                var message = new MISAMessage();
+                var message = new JSONMessage();
                 message.UserMsg = ResourceVN.NoContent;
                 message.DevMsg = ResourceVN.NoContent;
                 message.StatusCode = 204;
@@ -125,7 +125,7 @@ namespace EPAT.WebApi.Controllers
             var res = _baseService.InsertService(entity);
             if (res > 0)
             {
-                var message = new MISAMessage();
+                var message = new JSONMessage();
                 message.UserMsg = ResourceVN.SuccessPost;
                 message.DevMsg = ResourceVN.SuccessPost;
                 message.StatusCode = 201;
@@ -133,7 +133,7 @@ namespace EPAT.WebApi.Controllers
             }
             else
             {
-                var message = new MISAMessage();
+                var message = new JSONMessage();
                 message.UserMsg = ResourceVN.Error_Exception_Default;
                 message.DevMsg = ResourceVN.Error_ValidateData;
                 message.StatusCode = 400;
@@ -174,7 +174,7 @@ namespace EPAT.WebApi.Controllers
             //trả kết quả cho client
             if (res > 0)
             {
-                var message = new MISAMessage();
+                var message = new JSONMessage();
                 message.UserMsg = ResourceVN.SuccessPut;
                 message.DevMsg = ResourceVN.SuccessPut;
                 message.StatusCode = 200;
@@ -182,7 +182,7 @@ namespace EPAT.WebApi.Controllers
             }
             else
             {
-                var message = new MISAMessage();
+                var message = new JSONMessage();
                 message.UserMsg = ResourceVN.Error_Exception_Default;
                 message.DevMsg = ResourceVN.Error_ValidateData;
                 message.StatusCode = 400;
@@ -218,7 +218,7 @@ namespace EPAT.WebApi.Controllers
             var res = _baseService.DeleteService(id);
             if (res > 0)
             {
-                var message = new MISAMessage();
+                var message = new JSONMessage();
                 message.UserMsg = ResourceVN.SuccessDelete;
                 message.DevMsg = ResourceVN.SuccessDelete;
                 message.StatusCode = 200;
@@ -226,7 +226,7 @@ namespace EPAT.WebApi.Controllers
             }
             else
             {
-                var message = new MISAMessage();
+                var message = new JSONMessage();
                 message.UserMsg = ResourceVN.Error_Exception_Default;
                 message.DevMsg = ResourceVN.Error_ValidateData;
                 message.StatusCode = 400;
@@ -255,7 +255,7 @@ namespace EPAT.WebApi.Controllers
             var res = _baseService.MultiDeleteService(ids);
             if (res > 0)
             {
-                var message = new MISAMessage();
+                var message = new JSONMessage();
                 message.UserMsg = ResourceVN.SuccessDelete;
                 message.DevMsg = ResourceVN.SuccessDelete;
                 message.StatusCode = 200;
@@ -263,7 +263,7 @@ namespace EPAT.WebApi.Controllers
             }
             else
             {
-                var message = new MISAMessage();
+                var message = new JSONMessage();
                 message.UserMsg = ResourceVN.Error_Exception_Default;
                 message.DevMsg = ResourceVN.Error_ValidateData;
                 message.StatusCode = 400;
@@ -348,7 +348,7 @@ namespace EPAT.WebApi.Controllers
     protected IActionResult HandleException(Exception ex)
 
     {
-        var error = new MISAMessage();
+        var error = new JSONMessage();
         error.DevMsg = ex.Message;
         error.UserMsg = ResourceVN.Error_Exception_Default;
         error.Data = ex.Data;
@@ -366,7 +366,7 @@ namespace EPAT.WebApi.Controllers
     /// Author: quyetnv (21/03/2022)
     protected virtual IActionResult HandleValidateException(ValidateException ex)
     {
-        var error = new MISAMessage();
+        var error = new JSONMessage();
         error.DevMsg = ex.Message;
         error.UserMsg = ex.Message;
         error.StatusCode = 400;

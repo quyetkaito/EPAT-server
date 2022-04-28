@@ -159,13 +159,13 @@ namespace EPAT.Core.Services
                 }
 
                 //kiểm tra có att đánh dấu bắt buộc nhập hay không?
-                var isRequired = Attribute.IsDefined(property, typeof(MISARequired));
+                var isRequired = Attribute.IsDefined(property, typeof(Required));
                 if (isRequired == true && (propValue == null || propValue.ToString() == string.Empty))
                 {
                     isValid = false;
                     //lấy ra errorMgs của att bắt buộc nhập
-                    var requiredAtt = Attribute.GetCustomAttribute(property, typeof(MISARequired));
-                    var errorMsg = (requiredAtt as MISARequired).messageError;
+                    var requiredAtt = Attribute.GetCustomAttribute(property, typeof(Required));
+                    var errorMsg = (requiredAtt as Required).messageError;
                     if (errorMsg == null)
                     {
                         errorMsg = string.Format(ResourceVN.Empty_PropName, propName);
