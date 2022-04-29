@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EPAT.WebApi.Controllers
 {
+    /// <summary>
+    /// API cho tài khoản
+    /// </summary>
+    /// Author: quyetkaio (28/04/2022)
     public class AccountsController : EPatBaseController<Account>
     {
         IAccountService _accountService;

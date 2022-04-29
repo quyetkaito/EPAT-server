@@ -15,13 +15,13 @@ namespace EPAT.Core.Services
     /// <summary>
     /// Base Service xử lý các nghiệp vụ chung cho các đối tượng
     /// </summary>
-    /// <typeparam name="MISAEntity">Tên đối tượng</typeparam>
+    /// <typeparam name="T">Tên đối tượng</typeparam>
     /// Author: quyetnv (17/03/2022)
-    public class BaseService<MISAEntity> : IBaseService<MISAEntity> where MISAEntity : class
+    public class BaseService<T> : IBaseService<T> where T : class
     {
 
         #region Declare
-        IBaseRepository<MISAEntity> _baseRepository;
+        IBaseRepository<T> _baseRepository;
         #endregion
 
 
@@ -30,7 +30,7 @@ namespace EPAT.Core.Services
         /// Hàm khởi tạo baseservice với tham số
         /// </summary>
         /// <param name="baseRepository">interface base repository</param>
-        public BaseService(IBaseRepository<MISAEntity> baseRepository)
+        public BaseService(IBaseRepository<T> baseRepository)
         {
             _baseRepository = baseRepository;
         }
@@ -43,7 +43,7 @@ namespace EPAT.Core.Services
         /// <param name="entity">đối tượng thao tác</param>
         /// <returns>số bản ghi được thêm</returns>
         /// Author: quyetnv (12/03/2022)
-        public int InsertService(MISAEntity entity)
+        public int InsertService(T entity)
         {
             //Xử lý nghiệp vụ validate
             //check trùng mã, check bắt buộc nhập...
@@ -66,7 +66,7 @@ namespace EPAT.Core.Services
         /// <param name="entity">đối tượng có thể xử lý nghiệp vụ chung</param>
         /// <returns>số bản ghi được update</returns>
         /// Author: quyetnv (12/03/2022)
-        public int UpdateService(MISAEntity entity)
+        public int UpdateService(T entity)
         {
             //Xử lý nghiệp vụ validate
             var isValid = ValidateObject(entity, Mode.Update);
@@ -136,7 +136,7 @@ namespace EPAT.Core.Services
         /// true - hợp lệ/false - không hợp lệ
         /// </returns>
         /// Author: quyetnv (16/03/2022)
-        protected virtual bool ValidateObject(MISAEntity entity, Mode mode)
+        protected virtual bool ValidateObject(T entity, Mode mode)
         {
             var isValid = true;
             //biến chứa các thông tin không hợp lệ
@@ -231,7 +231,7 @@ namespace EPAT.Core.Services
         /// false - không hợp lệ
         /// </returns>
         /// Author: quyetnv (15/03/2022)
-        protected virtual bool ValidateCustom(MISAEntity entity, Dictionary<string, string> errorData, Mode mode)
+        protected virtual bool ValidateCustom(T entity, Dictionary<string, string> errorData, Mode mode)
         {
             return true;
         }
@@ -266,7 +266,7 @@ namespace EPAT.Core.Services
             }
         }
 
-        public IEnumerable<MISAEntity> Get()
+        public IEnumerable<T> Get()
         {
             return _baseRepository.Get();   
         }
@@ -279,6 +279,11 @@ namespace EPAT.Core.Services
 
             //gọi repo truy vấn
             return _baseRepository.Paging(pageSize, pageNumber);
+        }
+
+        public T GetById(Guid id)
+        {
+            return _baseRepository.GetById(id);
         }
     }
 }

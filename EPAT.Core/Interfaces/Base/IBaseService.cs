@@ -9,9 +9,9 @@ namespace EPAT.Core.Interfaces.Base
     /// <summary>
     /// Interface base service, liệt kê các nghiệp vụ có thể xử lý chung cho các đối tượng khác nhau.
     /// </summary>
-    /// <typeparam name="MISAEntity">Đối tượng tự định nghĩa</typeparam>
+    /// <typeparam name="T">Đối tượng tự định nghĩa</typeparam>
     /// Author: quyetnv (18/03/2022)
-    public interface IBaseService<MISAEntity> where MISAEntity : class
+    public interface IBaseService<T> where T : class
     {
         /// <summary>
         /// base service thêm mới đối tượng
@@ -19,7 +19,7 @@ namespace EPAT.Core.Interfaces.Base
         /// <param name="entity">đối tượng cần thêm</param>
         /// <returns>Số bản ghi được thêm mới</returns>
         /// Author: quyetnv (12/03/2022)
-        public int InsertService(MISAEntity entity);
+        public int InsertService(T entity);
 
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace EPAT.Core.Interfaces.Base
         /// <param name="entity">đối tượng cần sửa</param>
         /// <returns>Số bản ghi được update</returns>
         /// Author: quyetnv (12/03/2022)
-        public int UpdateService(MISAEntity entity);
+        public int UpdateService(T entity);
 
 
         /// <summary>
@@ -58,7 +58,8 @@ namespace EPAT.Core.Interfaces.Base
         /// Author: quyetnv (18/03/2022)
         public object Filter(int pageSize, int pageNumber, string? textSearch);
 
-        public IEnumerable<MISAEntity> Get();
+        public IEnumerable<T> Get();
+        public T GetById(Guid id);
         public Object Paging(int pageSize, int pageNumber);
     }
 }

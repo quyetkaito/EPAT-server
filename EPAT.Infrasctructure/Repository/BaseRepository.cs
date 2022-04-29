@@ -15,7 +15,7 @@ namespace EPAT.Infrasctructure.Repository
     /// lấy 1, thêm, sửa, xóa, xóa nhiều, tìm kiếm, phân trang).
     /// </summary>
     /// Author: quyetnv (11/03/2022)
-    public class BaseRepository<MISAEntity> where MISAEntity : class
+    public class BaseRepository<T> where T : class
     {
 
         #region Field
@@ -30,7 +30,7 @@ namespace EPAT.Infrasctructure.Repository
         public BaseRepository()
         {
             //lấy tên bảng dữ liệu
-            tableName = ToUnderscoreCase(typeof(MISAEntity).Name);
+            tableName = ToUnderscoreCase(typeof(T).Name);
         }
         #endregion
 
@@ -41,14 +41,14 @@ namespace EPAT.Infrasctructure.Repository
         /// </summary>
         /// <returns>Toàn bộ danh sách đối tượng</returns>
         /// Author: quyetnv (12/03/2022)
-        public virtual IEnumerable<MISAEntity> Get() //xong oke
+        public virtual IEnumerable<T> Get() //xong oke
         {
             //khởi tạo kết nối
             using (var sqlConnection = new MySqlConnection(ConnectionString))
             {
                 var sqlCommand = $"SELECT * FROM {tableName}";
                 //thực hiện truy vấn
-                var entities = sqlConnection.Query<MISAEntity>(sql: sqlCommand);
+                var entities = sqlConnection.Query<T>(sql: sqlCommand);
                 return entities;
             }
         }
@@ -60,7 +60,7 @@ namespace EPAT.Infrasctructure.Repository
         /// <param name="id">id của đối tượng</param>
         /// <returns>Một đối tượng</returns>
         /// Author: quyetnv (12/03/2022)
-        public MISAEntity GetById(Guid id) //xong oke
+        public T GetById(Guid id) //xong oke
         {
             //lấy tên cột là id của bảng
             var tableId = GetTableKey();
@@ -73,7 +73,7 @@ namespace EPAT.Infrasctructure.Repository
 
                 //Câu lệnh truy vấn lấy dữ liệu
                 var sqlCommand = $"SELECT * FROM {tableName} WHERE {tableId} = @id";
-                var res = sqlConnection.QueryFirstOrDefault<MISAEntity>(sql: sqlCommand, param: parameters);
+                var res = sqlConnection.QueryFirstOrDefault<T>(sql: sqlCommand, param: parameters);
 
                 //trả kết quả cho client
                 return res;
@@ -121,7 +121,7 @@ namespace EPAT.Infrasctructure.Repository
         /// <param name="entity">một đối tượng truyền lên từ client</param>
         /// <returns>số bản ghi được thêm</returns>
         /// Author: quyetkaito (07/04/2022)
-        public int Insert(MISAEntity entity)
+        public int Insert(T entity)
         {
             // Lấy tên cột từ table
             var columns = GetTableColumns();
@@ -159,7 +159,7 @@ namespace EPAT.Infrasctructure.Repository
         /// <param name="entity">Một đối tượng cần sửa</param>
         /// <returns>số bản ghi được cập nhật</returns>
         /// Author: quyetnv (12/03/2022)
-        public int Update(MISAEntity entity)
+        public int Update(T entity)
         {
             // Lấy key từ bảng
             var key = GetTableKey();
@@ -224,7 +224,7 @@ namespace EPAT.Infrasctructure.Repository
 
                 var multi = sqlConnection.QueryMultiple(sqlFilter, param: parameters);
                 var totalRecord = multi.Read<int>().Single();
-                var entities = multi.Read<MISAEntity>().ToList();
+                var entities = multi.Read<T>().ToList();
 
                 double totalPage;
                 if (totalRecord < pageSize)
@@ -268,7 +268,7 @@ namespace EPAT.Infrasctructure.Repository
 
             var multi = sqlConnection.QueryMultiple(sqlFilter, param: parameters);
             var totalRecord = multi.Read<int>().Single();
-            var entities = multi.Read<MISAEntity>().ToList();
+            var entities = multi.Read<T>().ToList();
 
             double totalPage;
             if (totalRecord < pageSize)
@@ -340,7 +340,7 @@ namespace EPAT.Infrasctructure.Repository
         /// <returns></returns>
         public string GetTableKey()
         {
-            var prs = typeof(MISAEntity).GetProperties();
+            var prs = typeof(T).GetProperties();
             foreach (var p in prs)
             {
                 var att = p.GetCustomAttribute<TableKey>();
@@ -359,7 +359,7 @@ namespace EPAT.Infrasctructure.Repository
         public List<string> GetTableColumns()
         {
             var columns = new List<string>();
-            var prs = typeof(MISAEntity).GetProperties();
+            var prs = typeof(T).GetProperties();
             foreach (var p in prs)
             {
                 var att = p.GetCustomAttribute<TableColumn>();
@@ -372,6 +372,11 @@ namespace EPAT.Infrasctructure.Repository
         }
         #endregion
 
+        /// <summary>
+        /// chuyển tên bảng về dạng snake_case
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public string ToUnderscoreCase(string str)
         {
             return string.Concat(str.Select((x, i) => i > 0 && char.IsUpper(x) ? "_" + x.ToString() : x.ToString())).ToLower();

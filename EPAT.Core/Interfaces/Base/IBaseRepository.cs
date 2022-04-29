@@ -9,16 +9,16 @@ namespace EPAT.Core.Interfaces.Base
     /// <summary>
     /// Interface liệt kê các công việc chung của các interface khác khi tương tác với database
     /// </summary>
-    /// <typeparam name="MISAEntity">Một đối tượng tự định nghĩa chưa có giá trị</typeparam>
+    /// <typeparam name="T">Một đối tượng tự định nghĩa chưa có giá trị</typeparam>
     /// Author: quyetnv (18/03/2022)
-    public interface IBaseRepository<MISAEntity> where MISAEntity : class
+    public interface IBaseRepository<T> where T : class
     {
         /// <summary>
         /// Interface lấy toàn bộ bảng dữ liệu
         /// </summary>
         /// <returns>Toàn bộ danh sách đối tượng</returns>
         /// Author: quyetnv (12/03/2022)
-        public IEnumerable<MISAEntity> Get();
+        public IEnumerable<T> Get();
 
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace EPAT.Core.Interfaces.Base
         /// <param name="id">id của đối tượng</param>
         /// <returns>Một đối tượng</returns>
         /// Author: quyetnv (12/03/2022)
-        public MISAEntity GetById(Guid entityId);
+        public T GetById(Guid entityId);
 
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace EPAT.Core.Interfaces.Base
         /// <param name="entity">một đối tượng truyền lên từ client</param>
         /// <returns>Số bản ghi được thêm mới</returns>
         /// Author: quyetnv (12/03/2022)
-        public int Insert(MISAEntity entity);
+        public int Insert(T entity);
 
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace EPAT.Core.Interfaces.Base
         /// <param name="entity"></param>
         /// <returns>Số bản ghi được update</returns>
         /// Author: quyetnv(18/03/2022)
-        public int Update(MISAEntity entity);
+        public int Update(T entity);
 
 
         /// <summary>

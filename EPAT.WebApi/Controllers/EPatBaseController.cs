@@ -8,13 +8,11 @@ namespace EPAT.WebApi.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class EPatBaseController<MISAEntity> : ControllerBase where MISAEntity : class
+    public class EPatBaseController<T> : ControllerBase where T : class
     {
         #region Declare
         //khai báo một interface base service
-        IBaseService<MISAEntity> _baseService;
-        //khai báo interface base repo
-        IBaseRepository<MISAEntity> _baseRepository;
+        IBaseService<T> _baseService;
         #endregion
 
         #region Constructor
@@ -23,12 +21,7 @@ namespace EPAT.WebApi.Controllers
         /// </summary>
         /// <param name="baseService">interface base service</param>
         /// <param name="baseRepository">interface base repo</param>
-        public EPatBaseController(IBaseService<MISAEntity> baseService, IBaseRepository<MISAEntity> baseRepository)
-        {
-            _baseService = baseService;
-            _baseRepository = baseRepository;
-        }
-        public EPatBaseController(IBaseService<MISAEntity> baseService)
+        public EPatBaseController(IBaseService<T> baseService)
         {
             _baseService = baseService;
         }
@@ -86,7 +79,7 @@ namespace EPAT.WebApi.Controllers
     {
         try
         {
-            var entity = _baseRepository.GetById(id);
+            var entity = _baseService.GetById(id);
             if (entity != null)
             {
                 return Ok(entity);
@@ -118,7 +111,7 @@ namespace EPAT.WebApi.Controllers
     /// </returns>
     /// Author:quyetnv (07/03/2022)
     [HttpPost]
-    public IActionResult Post(MISAEntity entity)
+    public IActionResult Post(T entity)
     {
         try
         {   //1. xử lý nghiệp vụ
@@ -165,7 +158,7 @@ namespace EPAT.WebApi.Controllers
     /// </returns>
     /// Author:quyetnv (07/03/2022)
     [HttpPut]
-    public IActionResult Put(MISAEntity entity)
+    public IActionResult Put(T entity)
     {
         try
         {
