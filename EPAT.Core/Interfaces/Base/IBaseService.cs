@@ -58,8 +58,13 @@ namespace EPAT.Core.Interfaces.Base
         /// Author: quyetnv (18/03/2022)
         public object Filter(int pageSize, int pageNumber, string? textSearch);
 
+        //lây toàn bộ
         public IEnumerable<T> Get();
+
+        //lấy theo id
         public T GetById(Guid id);
+
+        //phân trang only
         public Object Paging(int pageSize, int pageNumber);
     }
 }

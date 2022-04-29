@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using EPAT.Core.Entities;
+using EPAT.Core.Interfaces.Base;
 
 namespace EPAT.Infrasctructure.Repository
 {
@@ -15,7 +16,7 @@ namespace EPAT.Infrasctructure.Repository
     /// lấy 1, thêm, sửa, xóa, xóa nhiều, tìm kiếm, phân trang).
     /// </summary>
     /// Author: quyetnv (11/03/2022)
-    public class BaseRepository<T> where T : class
+    public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
 
         #region Field
@@ -201,26 +202,23 @@ namespace EPAT.Infrasctructure.Repository
         /// Author: quyetnv (12/03/2022)
         public virtual object Filter(int pageSize, int pageNumber, string? textSearch)
         {
-            //lấy các cột của bảng, EmployeeId = "Employee"+"Id", DepartmentId = "Department"+"Id
-            var columnName = $"{tableName}Name";
-            var columnCode = $"{tableName}Code";
-
+            //mặc định tìm kiếm theo tất cả các cột
             //Khởi tạo kết nối với MariaDB
             using (var sqlConnection = new MySqlConnection(ConnectionString))
             {
                 if (string.IsNullOrEmpty(textSearch))
                 {
                     textSearch = "";
-                }
+                }                
                 //tạo các parameter gán dữ liệu từ client truyền vào
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@dataFilter", "%" + textSearch + "%");
                 parameters.Add("@Offset", (pageNumber - 1) * pageSize);
                 parameters.Add("@Limit", pageSize);
 
-                //1.câu lệnh truy vấn số bản ghi phù hợp với employeeFilter
-                var sqlFilter = @$"SELECT COUNT(1) FROM {tableName} WHERE {columnCode} LIKE @dataFilter OR {columnName} LIKE @dataFilter; 
-                                SELECT * FROM {tableName}  WHERE {columnCode} LIKE @dataFilter OR {columnName} LIKE @dataFilter ORDER BY ModifiedDate DESC LIMIT @Offset,@Limit";
+                //1.câu lệnh truy vấn số bản ghi phù hợp với, base là ko tìm theo cột nào cả.
+                var sqlFilter = @$"SELECT COUNT(1) FROM {tableName}; 
+                                SELECT * FROM {tableName} ORDER BY modified_date DESC LIMIT @Offset,@Limit";
 
                 var multi = sqlConnection.QueryMultiple(sqlFilter, param: parameters);
                 var totalRecord = multi.Read<int>().Single();
@@ -253,6 +251,12 @@ namespace EPAT.Infrasctructure.Repository
 
         }
 
+        /// <summary>
+        /// phân trang only
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageNumber"></param>
+        /// <returns></returns>
         public virtual Object Paging(int pageSize, int pageNumber)
         {
             using var sqlConnection = new MySqlConnection(ConnectionString);
@@ -262,7 +266,7 @@ namespace EPAT.Infrasctructure.Repository
             parameters.Add("@Offset", (pageNumber - 1) * pageSize);
             parameters.Add("@Limit", pageSize);
 
-            //1.câu lệnh truy vấn số bản ghi phù hợp với employeeFilter
+            //1.câu lệnh truy vấn số bản ghi phù hợp với data đầu vào
             var sqlFilter = @$"SELECT COUNT(1) FROM {tableName}; 
                                 SELECT * FROM {tableName} ORDER BY modified_date DESC LIMIT @Limit OFFSET @Offset";
 

@@ -266,11 +266,16 @@ namespace EPAT.Core.Services
             }
         }
 
+        /// <summary>
+        /// lấy toàn bộ data
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<T> Get()
         {
             return _baseRepository.Get();   
         }
 
+        //phân trang only
         public object Paging(int pageSize, int pageNumber)
         {
             //xử lý nghiệp vụ, dữ liệu nhập vào <=0
@@ -281,6 +286,7 @@ namespace EPAT.Core.Services
             return _baseRepository.Paging(pageSize, pageNumber);
         }
 
+        //lấy theo id
         public T GetById(Guid id)
         {
             return _baseRepository.GetById(id);
