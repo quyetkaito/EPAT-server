@@ -41,7 +41,13 @@ builder.Services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
 builder.Services.AddScoped <IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 
+//patient
+builder.Services.AddScoped<IPatientRepository, PatientRepositoty>();
+builder.Services.AddScoped<IPatientService, PatientService>();
 
+//medical record
+builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();
+builder.Services.AddScoped<IMedicalRecordService, MedicalRecordService>();
 
 
 var app = builder.Build();

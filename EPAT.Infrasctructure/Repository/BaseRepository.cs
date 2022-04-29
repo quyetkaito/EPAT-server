@@ -61,7 +61,7 @@ namespace EPAT.Infrasctructure.Repository
         /// <param name="id">id của đối tượng</param>
         /// <returns>Một đối tượng</returns>
         /// Author: quyetnv (12/03/2022)
-        public T GetById(Guid id) //xong oke
+        public virtual T GetById(Guid id) //xong oke
         {
             //lấy tên cột là id của bảng
             var tableId = GetTableKey();
@@ -89,7 +89,7 @@ namespace EPAT.Infrasctructure.Repository
         /// <param name="id">id của đối tượng</param>
         /// <returns>số bản ghi bị xóa</returns>
         /// Author: quyetkaito (12/03/2022)
-        public int Delete(Guid id) //xong oke
+        public virtual int Delete(Guid id) //xong oke
         {
             //lấy tên id của bảng
             var tableId = GetTableKey();
@@ -122,7 +122,7 @@ namespace EPAT.Infrasctructure.Repository
         /// <param name="entity">một đối tượng truyền lên từ client</param>
         /// <returns>số bản ghi được thêm</returns>
         /// Author: quyetkaito (07/04/2022)
-        public int Insert(T entity)
+        public virtual int Insert(T entity)
         {
             // Lấy tên cột từ table
             var columns = GetTableColumns();
@@ -160,7 +160,7 @@ namespace EPAT.Infrasctructure.Repository
         /// <param name="entity">Một đối tượng cần sửa</param>
         /// <returns>số bản ghi được cập nhật</returns>
         /// Author: quyetnv (12/03/2022)
-        public int Update(T entity)
+        public virtual int Update(T entity)
         {
             // Lấy key từ bảng
             var key = GetTableKey();
@@ -306,7 +306,7 @@ namespace EPAT.Infrasctructure.Repository
         /// <param name="entityIds">danh sách các id của đối tượng</param>
         /// <returns>số bản ghi được xóa</returns>
         /// Author: quyetnv (14/03/2022)
-        public int MultiDelete(Guid[] entityIds)
+        public virtual int MultiDelete(Guid[] entityIds)
         {
             // Khởi tạo kết nối MariaDb
             using (var sqlConnection = new MySqlConnection(ConnectionString))

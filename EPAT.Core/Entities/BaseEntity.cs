@@ -14,21 +14,21 @@ namespace EPAT.Core.Entities
         /// <summary>
         /// Người tạo
         /// </summary>
-        public string? CreatedBy { get; set; }
+        public string? created_by { get; set; }
 
         /// <summary>
         /// Ngày tạo
         /// </summary>
-        public DateTime? CreatedDate { get; set; }
+        public DateTime? created_date { get; set; }
 
         /// <summary>
         /// Người chỉnh sửa
         /// </summary>
-        public string? ModifiedBy { get; set; }
+        public string? modified_by { get; set; }
 
         /// <summary>
         /// Ngày chỉnh sửa
         /// </summary>
-        public DateTime? ModifiedDate { get; set; }
+        public DateTime? modified_date { get; set; }
     }
 }

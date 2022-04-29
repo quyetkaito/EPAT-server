@@ -1,4 +1,5 @@
 ﻿using EPAT.Core.Entities;
+using EPAT.Core.Interfaces;
 using EPAT.Core.Interfaces.Base;
 using System;
 using System.Collections.Generic;
@@ -8,10 +9,12 @@ using System.Threading.Tasks;
 
 namespace EPAT.Core.Services
 {
-    public class PatientService : BaseService<Patient>
+    public class PatientService : BaseService<Patient>,IPatientService
     {
-        public PatientService(IBaseRepository<Patient> baseRepository) : base(baseRepository)
+        IPatientRepository _patientRepository;
+        public PatientService(IPatientRepository patientRepository) : base(patientRepository)
         {
+            _patientRepository = patientRepository; 
         }
     }
 }
