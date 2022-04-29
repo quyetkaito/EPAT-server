@@ -12,10 +12,16 @@ namespace EPAT.Infrasctructure.Repository
 {
     public class AccountRepository:BaseRepository<Account>,IAccountRepository
     {
+        /// <summary>
+        /// tìm kiếm tài khoản theo tên
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageNumber"></param>
+        /// <param name="textSearch"></param>
+        /// <returns></returns>
         public override object Filter(int pageSize, int pageNumber, string? textSearch)
         {
-            //mặc định tìm kiếm theo tất cả các cột
-            //Khởi tạo kết nối với MariaDB
+           //Khởi tạo kết nối với mysql
             using (var sqlConnection = new MySqlConnection(ConnectionString))
             {
                 if (string.IsNullOrEmpty(textSearch))

@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace EPAT.Core.Services
 {
+    /// <summary>
+    /// Nghiệp vụ cho account
+    /// </summary>
+    /// Author: quyetkaito (29/04/2022)
     public class AccountService : BaseService<Account>,IAccountService
     {
         IAccountRepository _repository;

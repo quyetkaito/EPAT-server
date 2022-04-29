@@ -20,7 +20,7 @@ namespace EPAT.WebApi.Controllers
 
         #region API riêng
         /// <summary>
-        /// API lấy bệnh án theo mã bệnh nhân
+        /// API lấy bệnh án theo id bệnh nhân
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -28,8 +28,16 @@ namespace EPAT.WebApi.Controllers
         [HttpGet("patient/{id}")]
         public IActionResult GetByPatient(Guid id)
         {
-            var res = _service.GetByPatient(id);
-            return Ok(res);
+            try
+            {
+                var res = _service.GetByPatient(id);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+            
         }
         #endregion
     }
