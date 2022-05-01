@@ -2,12 +2,14 @@
 using EPAT.Core.Exceptions;
 using EPAT.Core.Interfaces.Base;
 using EPAT.Core.Resources;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 namespace EPAT.WebApi.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    [Authorize]
     public class EPatBaseController<T> : ControllerBase where T : class
     {
         #region Declare
