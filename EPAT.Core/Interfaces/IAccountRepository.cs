@@ -10,5 +10,6 @@ namespace EPAT.Core.Interfaces
 {
     public interface IAccountRepository:IBaseRepository<Account>
     {
+        public Account Login(LoginInfo loginInfo);
     }
 }

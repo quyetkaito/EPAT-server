@@ -10,5 +10,6 @@ namespace EPAT.Core.Interfaces
 {
     public interface IAccountService:IBaseService<Account>
     {
+        public Account Login(LoginInfo loginInfo);
     }
 }

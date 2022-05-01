@@ -18,5 +18,17 @@ namespace EPAT.WebApi.Controllers
         {
             _accountService = accountService;
         }
+
+        /// <summary>
+        /// API đăng nhập theo tài khoản mật khẩu.
+        /// </summary>
+        /// <param name="loginInfo"></param>
+        /// <returns></returns>
+        [HttpPost("login")]
+        public IActionResult Login(LoginInfo loginInfo )
+        {
+            var res = _accountService.Login(loginInfo);
+            return Ok(res);
+        }
     }
 }

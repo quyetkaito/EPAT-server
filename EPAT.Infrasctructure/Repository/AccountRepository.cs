@@ -68,5 +68,26 @@ namespace EPAT.Infrasctructure.Repository
             }
 
         }
+
+        /// <summary>
+        /// truy cập db láy account theo tài khoản mật khẩu
+        /// </summary>
+        /// <param name="loginInfo"></param>
+        /// <returns></returns>
+        public Account Login(LoginInfo loginInfo)
+        {
+            //khởi tạo kết nối
+            using (var sqlConnection = new MySqlConnection(ConnectionString))
+            {
+                DynamicParameters dynamicParameters = new DynamicParameters();
+                dynamicParameters.Add("@username", loginInfo.username);
+                dynamicParameters.Add("@password", loginInfo.password);
+
+                var sqlCommand = $"SELECT * FROM account WHERE username=@username AND password=@password";
+                //thực hiện truy vấn
+                var entities = sqlConnection.QueryFirstOrDefault<Account>(sql: sqlCommand, param:dynamicParameters);
+                return entities;
+            }
+        }
     }
 }

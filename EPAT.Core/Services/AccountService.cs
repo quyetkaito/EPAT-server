@@ -21,5 +21,10 @@ namespace EPAT.Core.Services
             _repository  = repository;
 
         }
+
+        public Account Login(LoginInfo loginInfo)
+        {
+            return _repository.Login(loginInfo);
+        }
     }
 }
