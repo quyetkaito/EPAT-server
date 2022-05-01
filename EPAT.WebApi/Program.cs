@@ -73,7 +73,8 @@ var app = builder.Build();
 
 
 
-
+//login
+app.UseAuthentication();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -87,7 +88,6 @@ app.UseCors(MyAllowSpecificOrigins);
 
 app.MapControllers();
 
-//login
-app.UseAuthentication();
+
 
 app.Run();
