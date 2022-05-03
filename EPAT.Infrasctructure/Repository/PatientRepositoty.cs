@@ -36,8 +36,8 @@ namespace EPAT.Infrasctructure.Repository
                 parameters.Add("@Limit", pageSize);
 
                 //1.câu lệnh truy vấn số bản ghi phù hợp
-                var sqlFilter = @$"SELECT COUNT(1) FROM patient WHERE fullname LIKE @dataFilter OR identity_number LIKE @dataFilter OR phone_number LIKE @dataFilter; 
-                                SELECT * FROM patient WHERE fullname LIKE @dataFilter OR identity_number LIKE @dataFilter OR phone_number LIKE @dataFilter ORDER BY modified_date DESC LIMIT @Offset,@Limit";
+                var sqlFilter = @$"SELECT COUNT(1) FROM patient WHERE fullname LIKE @dataFilter OR patient_code LIKE @dataFilter OR identity_number LIKE @dataFilter OR phone_number LIKE @dataFilter; 
+                                SELECT * FROM patient WHERE fullname LIKE @dataFilter OR patient_code LIKE @dataFilter OR identity_number LIKE @dataFilter OR phone_number LIKE @dataFilter ORDER BY modified_date DESC LIMIT @Offset,@Limit";
 
                 var multi = sqlConnection.QueryMultiple(sqlFilter, param: parameters);
                 var totalRecord = multi.Read<int>().Single();

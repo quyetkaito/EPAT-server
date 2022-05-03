@@ -17,6 +17,10 @@ namespace EPAT.Core.Entities
         [TableKey]
         [TableColumn] public Guid patient_id { get; set; }
 
+
+        [TableColumn] [TableUnique]
+        public string patient_code { get; set; }
+
         /// <summary>
         /// tên đầy đủ
         /// </summary>
