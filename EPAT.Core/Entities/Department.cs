@@ -22,13 +22,13 @@ namespace EPAT.Core.Entities
         /// mã vị trí làm việc
         /// </summary>
         [TableColumn]
-        public string department_code { get; set; }
+        public string? department_code { get; set; }
 
         /// <summary>
         /// tên vị trí làm việc
         /// </summary>
 
         [TableColumn]
-        public string department_name { get; set; }
+        public string? department_name { get; set; }
     }
 }

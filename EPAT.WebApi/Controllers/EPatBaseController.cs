@@ -9,7 +9,7 @@ namespace EPAT.WebApi.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class EPatBaseController<T> : ControllerBase where T : class
     {
         #region Declare

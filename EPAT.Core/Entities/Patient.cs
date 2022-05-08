@@ -19,42 +19,42 @@ namespace EPAT.Core.Entities
 
 
         [TableColumn] [TableUnique]
-        public string patient_code { get; set; }
+        public string? patient_code { get; set; }
 
         /// <summary>
         /// tên đầy đủ
         /// </summary>
-        [TableColumn] public string fullname { get; set; }
+        [TableColumn] public string? fullname { get; set; }
         
         /// <summary>
         /// Ngày sinh
         /// </summary>        
-        [TableColumn] public DateTime date_of_birth { get; set; }
+        [TableColumn] public DateTime? date_of_birth { get; set; }
 
         /// <summary>
         /// Giới tính - 0 - nữ, 1 nam, 2 khác
         /// </summary>
-        [TableColumn] public int gender { get; set; }
+        [TableColumn] public int? gender { get; set; }
 
         /// <summary>
         /// số chứng minh nhân dân
         /// </summary>
-        [TableColumn] public string identity_number { get; set; }
+        [TableColumn] public string? identity_number { get; set; }
 
 
         /// <summary>
         /// Số điện thoại
         /// </summary>
-        [TableColumn] public string phone_number { get; set; }
+        [TableColumn] public string? phone_number { get; set; }
 
         /// <summary>
         /// Địa chỉ
         /// </summary>
-        [TableColumn] public string address{ get; set; }
+        [TableColumn] public string? address{ get; set; }
 
         /// <summary>
         /// mô tả
         /// </summary>
-        [TableColumn] public string description { get; set; }
+        [TableColumn] public string? description { get; set; }
     }
 }
