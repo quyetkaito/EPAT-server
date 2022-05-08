@@ -56,11 +56,18 @@ namespace EPAT.WebApi.Controllers
                         expires: DateTime.UtcNow.AddMinutes(10),
                         signingCredentials: signIn);
 
-                    return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                    //trả về đối tượng là token và thông tin account
+                    var data = new
+                    {
+                        token = new JwtSecurityTokenHandler().WriteToken(token),
+                        account = account
+                    };
+                return Ok(data);
+                    
                 }
                 else
                 {
-                    return BadRequest("Invalid credentials");
+                    return BadRequest("Xác thực không thành công");
                 }
             }
             else
